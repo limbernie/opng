@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# Front matter
+OPNG=$(readlink -f `dirname $0`)
 TEMP=$(mktemp -u)
+WATERMARK=watermark.sh
 
+# Generate the stamp
+cd ..
+./$WATERMARK
+
+# Stamp it
+cd $OPNG
 for png in *.png; do
 	echo $png
 	height=$(identify $png | cut -d' ' -f3 | cut -d'x' -f2)
