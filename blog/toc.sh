@@ -8,7 +8,7 @@ if grep '\{:toc\}' $md &>/dev/null; then
   exit
 fi
 
-sed -ir '/<!--more-->/a \
+sed -i -r '/<!--more-->/a \
 \
 ## On this post \
 {:.no_toc} \
