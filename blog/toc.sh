@@ -14,6 +14,6 @@ sed -ir '/<!--more-->/a \
 {:.no_toc} \
 \
 * TOC \
-{:toc}' $mr
+{:toc}' $md
 
 done
