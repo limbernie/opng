@@ -1,17 +1,23 @@
 #!/bin/bash
 
-TEMP=$(mktemp -u)
+TEMP="$(mktemp -u)"
 
 for png in *.png; do
-	echo "${png}"
-    echo "${png%*.png}-medium.png"
-    echo "${png%*.png}-small.png"
-	convert -strip -alpha Remove "${png}" "${png}"
-    convert -resize 66% "${png}" "${png%*.png}-medium.png"
-    convert -resize 33% "${png}" "${png%*.png}-small.png"
-	pngquant "${png}"
-    pngquant "${png%*.png}-medium.png"
-    pngquant "${png%*.png}-small.png"
+    echo "${png}"
+    convert -strip -alpha Remove "${png}" "${png}"
+    pngquant "${png}"
+
+    if [ "$(identify -format %w "${png}")" -ge 800 ]; then
+        echo "${png%*.png}-20vw.png"
+        echo "${png%*.png}-40vw.png"
+        echo "${png%*.png}-60vw.png"
+        convert -resize 20% "${png}" "${png%*.png}-20vw.png"
+        convert -resize 40% "${png}" "${png%*.png}-40vw.png"
+        convert -resize 60% "${png}" "${png%*.png}-60vw.png"
+        pngquant "${png%*.png}-20vw.png"
+        pngquant "${png%*.png}-40vw.png"
+        pngquant "${png%*.png}-60vw.png"
+    fi
 done > $TEMP
 
 for png in $(cat $TEMP); do
