@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILES=$@
-PATTERN='(png|jpg|gif)\)$'
+PATTERN='(png|jpg|gif)\" %\}$'
 OPEN='<a class="image-popup">'
 CLOSE='</a>'
 
