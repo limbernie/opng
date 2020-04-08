@@ -8,15 +8,15 @@ for png in *.png; do
     pngquant "${png}"
 
     if [ "$(identify -format %w "${png}")" -ge 800 ]; then
-        echo "${png%*.png}-20vw.png"
-        echo "${png%*.png}-40vw.png"
-        echo "${png%*.png}-60vw.png"
-        convert -resize 20% "${png}" "${png%*.png}-20vw.png"
-        convert -resize 40% "${png}" "${png%*.png}-40vw.png"
-        convert -resize 60% "${png}" "${png%*.png}-60vw.png"
-        pngquant "${png%*.png}-20vw.png"
-        pngquant "${png%*.png}-40vw.png"
-        pngquant "${png%*.png}-60vw.png"
+        echo "${png%*.png}-320w.png"
+        echo "${png%*.png}-480w.png"
+        echo "${png%*.png}-600w.png"
+        convert -resize 320 "${png}" "${png%*.png}-320w.png"
+        convert -resize 480 "${png}" "${png%*.png}-480vw.png"
+        convert -resize 600 "${png}" "${png%*.png}-600w.png"
+        pngquant "${png%*.png}-320w.png"
+        pngquant "${png%*.png}-480w.png"
+        pngquant "${png%*.png}-600w.png"
     fi
 done > $TEMP
 
