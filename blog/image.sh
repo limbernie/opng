@@ -1,8 +1,9 @@
 #!/bin/bash
 
 FILES=$@
+PATTERN="(png|jpg|gif)\)$"
 
 for md in $(readlink -f $FILES); do
-    ./image-popup.sh $md
-    ./image-responsive.sh $md
+    sed -i -r "s/\!\[(.*)\]\((.*)\)/\{% include image.html image_alt=\"\1\" image_src=\"\2\" %\}/" \
+    $md
 done
