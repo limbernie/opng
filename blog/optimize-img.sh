@@ -11,12 +11,12 @@ for img in $(readlink -f $FILES); do
                 -colorspace sRGB \
                 -resize 800 \
                 "${img}" "${img}" &&
-        cwebp "${img}" -o "${img%*.jpg}".webp
+        cwebp -quiet "${img}" -o "${img%*.jpg}".webp
     else
         convert -resize 800 \
                 -strip \
                 -alpha Remove \
                 "${img}" "${img}" &&
-        cwebp "${img}" -o "${img%*.png}".webp
+        cwebp -quiet "${img}" -o "${img%*.png}".webp
     fi
 done
