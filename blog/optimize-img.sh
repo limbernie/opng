@@ -16,7 +16,8 @@ for img in $(readlink -f $FILES); do
         convert -resize 800 \
                 -strip \
                 -alpha Remove \
-                "${img}" "${img}" &&
+                "${img}" "${img}"
+        pngquant "${img}"; rm "${img}"; mv "${img%*.png}"-fs8.png "${img}" &&
         cwebp -quiet "${img}" -o "${img%*.png}".webp
     fi
 done
