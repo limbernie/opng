@@ -13,10 +13,16 @@ for img in $(readlink -f $FILES); do
                 "${img}" "${img}" &&
         cwebp -quiet "${img}" -o "${img%*.jpg}".webp
     else
-        convert -resize 800 \
-                -strip \
-                -alpha Remove \
-                "${img}" "${img}"
+        if [ $(identify -format "%w" "${img}") -ge 800 ]; then
+            convert -resize 800 \
+                    -strip \
+                    -alpha Remove \
+                    "${img}" "${img}"
+        else
+            convert -strip \
+                    -alpha Remove \
+                    "${img}" "${img}"
+        fi
         pngquant "${img}"; rm "${img}"; mv "${img%*.png}"-fs8.png "${img}" &&
         cwebp -quiet "${img}" -o "${img%*.png}".webp
     fi
